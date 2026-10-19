@@ -7,6 +7,7 @@ that traps a user in a losing position is worse than no guardrail.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from typing import Callable
 
 from .spec import Guardrails
 
@@ -64,3 +65,16 @@ def check(order: Order, state: AccountState, g: Guardrails, strategy_coin: str) 
     if reasons:
         return Decision(False, tuple(reasons))
     return Decision(True, needs_approval=g.require_approval)
+
+
+def pre_trade_hook(g: Guardrails, strategy_coin: str, leverage: float, state: Callable[[], AccountState]):
+    """Adapt these guardrails to ``HyperliquidVenue(pre_trade=...)``: raises VenueError("guardrail") to block."""
+    from .venue import OrderIntent, VenueError
+
+    def hook(intent: OrderIntent, mid: float) -> None:
+        order = Order(intent.symbol, intent.side == "buy", intent.size * mid, leverage, intent.reduce_only)
+        decision = check(order, state(), g, strategy_coin)
+        if not decision.allowed:
+            raise VenueError("guardrail", "; ".join(decision.reasons), decision.reasons)
+
+    return hook

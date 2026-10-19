@@ -21,6 +21,7 @@ Why Hyperliquid:
 | Where it breaks | `robustness.py`, `report.py` | Cost stress, a 70/30 time split, P&L by market regime, every setting nudged ±10–25%, and plain-language flags. Markdown report and chart per strategy. |
 | Guardrails | `guardrails.py` | One deterministic check that gates backtest, paper and live orders: allowed coins, max position, max leverage, daily loss limit, shorting, cooldown, funding ceiling and human approval. Orders that close a position are never blocked. |
 | Paper and live | `live.py`, `broker.py` | The same loop for both. A paper broker on live mids, or Hyperliquid through an API wallet. **Live is dry-run by default**: orders are built and signed but not sent. |
+| **Venue adapter** | `venue.py`, [ADAPTER.md](ADAPTER.md) | **The piece meant to be lifted into a host app.** A small `Venue` interface and a Hyperliquid implementation of it: markets, candles, funding, mid, fees, account, positions, leverage, orders and closes, with stable error codes, idempotent client order ids and a `pre_trade` hook for risk limits. No dependency on the rest of this repo. |
 
 The guardrails follow the list in Conviction's own FAQ: max position size, max exposure, max daily loss, allowed assets, stop-loss and take-profit rules, leverage and shorting restrictions, cooldowns and human approval.
 
@@ -38,7 +39,7 @@ The ETH row shows why these reports flag small samples. With fees doubled and sl
 
 ## What has been checked
 
-- **16 unit tests pass:**
+- **31 tests pass**, plus a live read check against Hyperliquid testnet for the venue adapter. They include:
   - Next-bar fills, fees and slippage in both directions.
   - Funding sign: longs pay positive funding, shorts receive it.
   - Gap-through stops fill at the open; a stop is assumed to hit before a take-profit in the same bar.
@@ -46,6 +47,7 @@ The ETH row shows why these reports flag small samples. With fees doubled and sl
   - Every guardrail, including "never block an exit".
   - The live loop's entry, funding block and declined approval.
   - The compiler's request shape and retry, using a stand-in client.
+  - The venue adapter against Hyperliquid's documented responses: rounding, the $10 minimum, filled, resting and rejected orders, positions, closes, and guardrails blocking before an order is built.
 - **Live paper session on real BTC prices** (11 minutes, 2026-10-19 20:05–20:16 UTC). Three round trips of about $1,000 each: every entry fired on a closed 5-minute bar and passed the guardrails, and every position exited one bar later on "max hold". Net P&L was −$3.03, which matches about $1.30 per round trip in slippage and taker fees. The log is in `logs/paper_smoke.jsonl`.
 - **Dry run against Hyperliquid testnet.** Metadata and prices came from testnet, and the guardrails blocked an oversized order. A $400 ETH buy became an IOC limit order 1% through the mid, with size rounded to ETH's 4 decimals, signed with a throwaway key and not sent.
 
