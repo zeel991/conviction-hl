@@ -1,0 +1,14 @@
+{
+  "name": "SOL RSI dip, 3x",
+  "idea": "Buy SOL with 3x leverage when the 4-hour RSI drops below 30. Take profit at 6%, stop at 4%. Don't enter if longs are paying more than 0.05% per 8 hours.",
+  "coin": "SOL",
+  "interval": "4h",
+  "side": "long",
+  "entry": ["rsi(14) < 30"],
+  "exit": [],
+  "take_profit_pct": 6,
+  "stop_loss_pct": 4,
+  "position_pct": 100,
+  "leverage": 3,
+  "guardrails": {"max_position_usd": 50000, "max_leverage": 3, "max_daily_loss_pct": 8, "max_funding_8h_against": 0.0005}
+}

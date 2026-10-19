@@ -1,0 +1,14 @@
+{
+  "name": "Fade crowded ETH longs",
+  "idea": "Short ETH when longs are crowded: funding above 0.03% per 8 hours and price below its 20-period EMA. Exit after a day or on a 3% stop.",
+  "coin": "ETH",
+  "interval": "4h",
+  "side": "short",
+  "entry": ["funding_8h > 0.0003", "close < ema(20)"],
+  "exit": [],
+  "stop_loss_pct": 3,
+  "max_hold_bars": 6,
+  "position_pct": 100,
+  "leverage": 2,
+  "guardrails": {"max_position_usd": 50000, "max_leverage": 3, "max_daily_loss_pct": 6, "cooldown_bars": 2}
+}

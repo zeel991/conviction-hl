@@ -1,0 +1,28 @@
+[project]
+name = "conviction-hl"
+version = "0.1.0"
+description = "Hyperliquid perps for Conviction-style trading agents: idea to rules, honest backtest, paper and guarded live trading"
+readme = "README.md"
+authors = [
+    { name = "zeel991", email = "darjizeel587@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "anthropic>=1.15.0",
+    "hyperliquid-python-sdk>=0.24.0",
+    "matplotlib>=3.11.2",
+    "numpy>=2.5.4",
+    "pandas>=3.0.6",
+]
+
+[project.scripts]
+conviction-hl = "conviction_hl.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.12.23,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]

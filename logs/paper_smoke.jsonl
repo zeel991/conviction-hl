@@ -1,0 +1,11 @@
+{"t": "2026-10-19T20:05:00+00:00", "event": "start", "strategy": "BTC 5m smoke test", "coin": "BTC", "interval": "5m", "side": "long", "equity": 10000.0, "broker": "PaperBroker"}
+{"t": "2026-10-19T20:05:02+00:00", "event": "bar", "bar": "2026-10-19 20:00:00+00:00", "close": 81919.0, "entry_signal": true, "exit_signal": false, "in_position": false}
+{"t": "2026-10-19T20:05:02+00:00", "event": "entry", "price": 81934.88369999999, "size": 0.012207254771510708, "notional": 1000.2, "raw": null}
+{"t": "2026-10-19T20:10:02+00:00", "event": "bar", "bar": "2026-10-19 20:05:00+00:00", "close": 81920.0, "entry_signal": true, "exit_signal": false, "in_position": true}
+{"t": "2026-10-19T20:10:03+00:00", "event": "exit", "reason": "max hold", "price": 81904.1159, "size": 0.012207254771510708, "equity": 9998.72}
+{"t": "2026-10-19T20:10:03+00:00", "event": "entry", "price": 81936.8841, "size": 0.012205399623589101, "notional": 1000.07, "raw": null}
+{"t": "2026-10-19T20:15:01+00:00", "event": "bar", "bar": "2026-10-19 20:10:00+00:00", "close": 81970.0, "entry_signal": true, "exit_signal": false, "in_position": true}
+{"t": "2026-10-19T20:15:02+00:00", "event": "exit", "reason": "max hold", "price": 81953.1061, "size": 0.012205399623589101, "equity": 9998.02}
+{"t": "2026-10-19T20:15:03+00:00", "event": "entry", "price": 81985.8939, "size": 0.012197246830057386, "notional": 1000.0, "raw": null}
+{"t": "2026-10-19T20:16:06+00:00", "event": "exit", "reason": "session end", "price": 81973.1021, "size": 0.012197246830057386, "equity": 9996.97}
+{"t": "2026-10-19T20:16:06+00:00", "event": "stop", "equity": 9996.97, "pnl": -3.03}

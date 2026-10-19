@@ -1,0 +1,13 @@
+{
+  "name": "BTC 5m smoke test",
+  "idea": "Go long BTC at the next bar and close it one bar later. Exists to exercise the live loop end to end.",
+  "coin": "BTC",
+  "interval": "5m",
+  "side": "long",
+  "entry": ["close > 0"],
+  "exit": [],
+  "max_hold_bars": 1,
+  "position_pct": 10,
+  "leverage": 1,
+  "guardrails": {"max_position_usd": 2000, "max_leverage": 3, "max_daily_loss_pct": 5}
+}
